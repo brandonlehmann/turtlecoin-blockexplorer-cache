@@ -1,0 +1,27 @@
+{
+  "name": "blockexplorer-db-cache",
+  "version": "0.6.0",
+  "description": "TurtleCoin Block Explorer Database Cache Library",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "keywords": [
+    "TurtleCoin",
+    "Blockchain",
+    "Cache",
+    "Explorer",
+    "Block",
+    "Chain",
+    "Database"
+  ],
+  "author": "Brandon Lehmann <brandonlehmann@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "sqlite3": "^4.0.0",
+    "turtlecoin-rpc": "^0.5.3"
+  },
+  "devDependencies": {
+    "standard": "^11.0.1"
+  }
+}
