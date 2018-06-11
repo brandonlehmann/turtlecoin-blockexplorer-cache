@@ -12,6 +12,7 @@ const Self = function (opts) {
   this.rpcPort = opts.rpcPort || 11898
   this.timeout = opts.timeout || 20000
   this.updateInterval = opts.updateInterval || 5
+  this.maxDeviance = opts.maxDeviance || 5
   this.dbEngine = opts.dbEngine || 'sqlite'
   this.rpc = new TurtleCoind({
     host: this.host,
@@ -23,6 +24,8 @@ const Self = function (opts) {
   this.blockBatchSize = opts.blockBatchSize || 1000
   this.db = false
 
+  this.run = true
+
   this.updateCount = 0
   if (this.dbEngine === 'sqlite') {
     this.dbFile = this.dbFile + '.sqlite'
@@ -30,6 +33,8 @@ const Self = function (opts) {
       dbFolder: this.dbFolder,
       dbFile: this.dbFile
     })
+  } else {
+    throw new Error('Must specify a support database engine')
   }
 
   if (this.db) {
@@ -49,15 +54,74 @@ const Self = function (opts) {
 }
 inherits(Self, EventEmitter)
 
+Self.prototype.start = function () {
+  if (!this.run) {
+    this.run = true
+    this._update()
+  }
+}
+
+Self.prototype.stop = function () {
+  this.run = false
+}
+
+Self.prototype.getBlocks = function (opts) {
+  return this.db.getBlocks(opts)
+}
+
+Self.prototype.getBlock = function (opts) {
+  return this.db.getBlock(opts)
+}
+
+Self.prototype.getTransaction = function (opts) {
+  return this.db.getTransaction(opts)
+}
+
+Self.prototype.getBlockCount = function () {
+  return this.db.getBlockCount()
+}
+
+Self.prototype.getBlockHash = function (opts) {
+  return this.db.getBlockHash(opts)
+}
+
+Self.prototype.getLastBlockHeader = function () {
+  return new Promise((resolve, reject) => {
+    var networkHeight
+    this.rpc.getHeight().then((height) => {
+      networkHeight = height
+      return this.db.getLastBlockHeader()
+    }).then((header) => {
+      if (Math.abs(networkHeight - header.height) > this.maxDeviance) {
+        return reject(new Error('Difference between the network and our cache exceeds our threshold'))
+      }
+      return resolve(header)
+    }).catch((err) => {
+      return reject(err)
+    })
+  })
+}
+
+Self.prototype.getBlockHeaderByHash = function (opts) {
+  return this.db.getBlockHeaderByHash(opts)
+}
+
+Self.prototype.getBlockHeaderByHeight = function (opts) {
+  return this.db.getBlockHeaderByHeight(opts)
+}
+
 Self.prototype._update = function () {
+  if (!this.run) return
+
   var blockCount, networkHeight
   if (this.db) {
-    this.db.getBlockCount().then((height) => {
-      blockCount = height + 1
+    this.db.getBlockCount().then((resp) => {
+      blockCount = resp.count + 1
       return this.rpc.getBlockCount()
     }).then((height) => {
       networkHeight = height
       if (networkHeight === blockCount) {
+        this.emit('synced')
         throw new Error('No blocks to read')
       }
       // var diff = networkHeight - blockCount
@@ -113,6 +177,7 @@ Self.prototype._updateHeight = function (height) {
     }).then((transactions) => {
       return this._saveData(block, transactions)
     }).then((saveHeight) => {
+      this.updateCount++
       return resolve(saveHeight)
     }).catch((err) => {
       return reject(err)
@@ -130,7 +195,6 @@ Self.prototype._saveData = function (block, transactions) {
     Promise.all(txns).then(() => {
       return this.db.saveBlock(block)
     }).then(() => {
-      this.updateCount++
       return resolve(block.height)
     }).catch((err) => {
       return reject(err)
