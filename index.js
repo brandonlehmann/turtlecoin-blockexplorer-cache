@@ -15,8 +15,8 @@ const Self = function (opts) {
   this.maxDeviance = opts.maxDeviance || 5
   this.dbEngine = opts.dbEngine || 'sqlite'
   this.rpc = new TurtleCoind({
-    host: this.host,
-    port: this.port,
+    host: this.rpcHost,
+    port: this.rpcPort,
     timeout: this.timeout
   })
   this.dbFolder = opts.dbFolder || 'db'
