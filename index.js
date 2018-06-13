@@ -13,7 +13,7 @@ const Self = function (opts) {
   this.timeout = opts.timeout || 20000
   this.updateInterval = opts.updateInterval || 5
   this.maxDeviance = opts.maxDeviance || 5
-  this.autoStartUpdater = opts.autoStartUpdater || true
+  this.autoStartUpdater = (opts.autoStartUpdater !== undefined) ? opts.autoStartUpdater : true
   this.dbEngine = opts.dbEngine || 'sqlite'
   this.rpc = new TurtleCoind({
     host: this.rpcHost,
