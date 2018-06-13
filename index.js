@@ -13,6 +13,7 @@ const Self = function (opts) {
   this.timeout = opts.timeout || 20000
   this.updateInterval = opts.updateInterval || 5
   this.maxDeviance = opts.maxDeviance || 5
+  this.autoStartUpdater = opts.autoStartUpdater || true
   this.dbEngine = opts.dbEngine || 'sqlite'
   this.rpc = new TurtleCoind({
     host: this.rpcHost,
@@ -24,8 +25,6 @@ const Self = function (opts) {
   this.blockBatchSize = opts.blockBatchSize || 1000
   this.db = false
 
-  this.run = true
-
   this.updateCount = 0
   if (this.dbEngine === 'sqlite') {
     this.dbFile = this.dbFile + '.sqlite'
@@ -34,13 +33,15 @@ const Self = function (opts) {
       dbFile: this.dbFile
     })
   } else {
-    throw new Error('Must specify a support database engine')
+    throw new Error('Must specify a supported database engine')
   }
 
   if (this.db) {
     this.db.on('ready', () => {
       this.emit('ready')
-      this._update()
+      if (this.autoStartUpdater) {
+        this.start()
+      }
     })
 
     this.db.on('info', (info) => {

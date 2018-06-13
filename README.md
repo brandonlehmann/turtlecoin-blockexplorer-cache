@@ -21,7 +21,8 @@ const cache = new BlockChainCache({
   updateInterval: 5, // How long, in seconds, that we pause for before checking for new blocks when we're synced up or we finish scanning a batch
   dbEngine: 'sqlite', // What database engine to use, see below for additional detais.
   dbFolder: 'db', // What folder to use to store the database file, only valid for some database engines
-  dbFile: 'turtlecoin', // The filename to use to store the database file, only valid for some database engines
+  dbFile: 'turtlecoin', // The filename to use to store the database file, only valid for some database engines,
+  autoStartUpdater: true // Auto start the updater process at object creation?
 })
 ```
 
