@@ -22,7 +22,8 @@ const cache = new BlockChainCache({
   dbEngine: 'sqlite', // What database engine to use, see below for additional detais.
   dbFolder: 'db', // What folder to use to store the database file, only valid for some database engines
   dbFile: 'turtlecoin', // The filename to use to store the database file, only valid for some database engines,
-  autoStartUpdater: true // Auto start the updater process at object creation?
+  autoStartUpdater: true, // Auto start the updater process at object creation?
+  targetBlockTime: 30 // Coin target block time
 })
 ```
 
@@ -308,6 +309,28 @@ Gets information on the single transaction.
     "paymentId": "",
     "size": 266
   }
+}
+```
+
+### cache.getTransactionHashesByPaymentId
+
+Retrives all transaction hashes for transactions with the specified paymentId
+
+```options.paymentId``` The paymentId to search for - *required*
+
+#### Sample Data
+
+```javascript
+{
+  "hashes": [
+    "205b88ff825d83308465921511e239ccd1e05005302669ffd16577714c559bab",
+    "259bf487af58574b43aea492a666a1aa29a316faf51490c460fef193f4f75636",
+    "2ed24b81b0b51b86223002e8515b141b8a4b09215be2afa86de46153fa8f2167",
+    "7dc8e17ef253a3805b7ae07d9e62f0311fa5098f1b1bcd9c745d7164c29ba286",
+    "8bc8b7dc1881601f9b659e11557e572b78500bc9cdb911535a9a3bc79d59cc38",
+    "e0a1dba9b03ca97f6ccac69bcbec6c5737cb972c0039a955b4446e4add6857fa"
+  ],
+  "status": "OK"
 }
 ```
 

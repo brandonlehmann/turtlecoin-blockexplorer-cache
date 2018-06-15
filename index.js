@@ -15,6 +15,7 @@ const Self = function (opts) {
   this.maxDeviance = opts.maxDeviance || 5
   this.autoStartUpdater = (opts.autoStartUpdater !== undefined) ? opts.autoStartUpdater : true
   this.dbEngine = opts.dbEngine || 'sqlite'
+  this.targetBlockTime = opts.targetBlockTime || 30
   this.rpc = new TurtleCoind({
     host: this.rpcHost,
     port: this.rpcPort,
@@ -76,6 +77,10 @@ Self.prototype.getBlock = function (opts) {
 
 Self.prototype.getTransaction = function (opts) {
   return this.db.getTransaction(opts)
+}
+
+Self.prototype.getTransactionHashesByPaymentId = function (opts) {
+  return this.db.getTransactionHashesByPaymentId(opts)
 }
 
 Self.prototype.getBlockCount = function () {
