@@ -21,7 +21,14 @@ const cache = new BlockChainCache({
   updateInterval: 5, // How long, in seconds, that we pause for before checking for new blocks when we're synced up or we finish scanning a batch
   dbEngine: 'sqlite', // What database engine to use, see below for additional detais.
   dbFolder: 'db', // What folder to use to store the database file, only valid for some database engines
-  dbFile: 'turtlecoin', // The filename to use to store the database file, only valid for some database engines,
+  dbFile: 'turtlecoin', // The filename to use to store the database file, only valid for some database engines
+  dbHost: '127.0.0.1', // The IP address of the external DB server to connect to, only valid for some database engines
+  dbPort: 3306, // The port of the external DB server to connect to, only valid for some database engines
+  dbUser: '', // The username to the external DB server to, only valid for some database engines
+  dbPassword: '', // The password to the external DB server, only valid for some database engines
+  dbDatabase: '', // The database name used on the external DB server, only valid for some database engines
+  dbSocketPath: false, // The path to the nix socket for the external DB server, only valid for some database engines
+  dbConnectionLimit: 10, // The maximum number of connections to open to the external DB server, only valid for some database engines
   autoStartUpdater: true, // Auto start the updater process at object creation?
   targetBlockTime: 30 // Coin target block time
 })
@@ -29,11 +36,13 @@ const cache = new BlockChainCache({
 
 ### Supported Database Engines
 
-At this time, just one database engine is supported; however, in the future support for additional database engines will be added.
+At this time, just three database engines are supported; however, in the future support for additional database engines will be added.
 
 |Engine|Database System|File Based|External Service Required|
 |---|---|---|---|
 |sqlite|[SQLite](https://sqlite.org)|Yes|No|
+|mysql|[MySQL](https://www.mysql.com/)|No|Yes|
+|mariadb|[mariaDB](https://mariadb.org/)|No|Yes|
 
 ## Events
 

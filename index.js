@@ -1,5 +1,5 @@
 // Copyright (c) 2018, Brandon Lehmann, The TurtleCoin Developers
-// 
+//
 // Please see the included LICENSE file for more information.
 
 'use strict'
@@ -8,6 +8,7 @@ const TurtleCoind = require('turtlecoin-rpc').TurtleCoind
 const inherits = require('util').inherits
 const EventEmitter = require('events').EventEmitter
 const SQLite = require('./lib/sqlite.js')
+const MySQL = require('./lib/mysql.js')
 
 const Self = function (opts) {
   opts = opts || {}
@@ -27,6 +28,13 @@ const Self = function (opts) {
   })
   this.dbFolder = opts.dbFolder || 'db'
   this.dbFile = opts.dbFile || 'turtlecoin'
+  this.dbHost = opts.dbHost || '127.0.0.1'
+  this.dbPort = opts.dbPort || 3306
+  this.dbUser = opts.dbUser || ''
+  this.dbPassword = opts.dbPassword || ''
+  this.dbDatabase = opts.dbDatabase || ''
+  this.dbSocketPath = opts.dbSocketPath || false
+  this.dbConnectionLimit = opts.dbConnectionLimit || 10
   this.blockBatchSize = opts.blockBatchSize || 1000
   this.db = false
 
@@ -36,6 +44,16 @@ const Self = function (opts) {
     this.db = new SQLite({
       dbFolder: this.dbFolder,
       dbFile: this.dbFile
+    })
+  } else if (this.dbEngine === 'mysql' || this.dbEngine === 'mariadb') {
+    this.db = new MySQL({
+      host: this.dbHost,
+      port: this.dbPort,
+      user: this.dbUser,
+      password: this.dbPassword,
+      database: this.dbDatabase,
+      socketPath: this.dbSocketPath,
+      connectionLimit: this.dbConnectionLimit
     })
   } else {
     throw new Error('Must specify a supported database engine')
