@@ -1,6 +1,6 @@
 {
   "name": "turtlecoin-blockexplorer-cache",
-  "version": "0.6.16",
+  "version": "0.6.17",
   "description": "TurtleCoin Block Explorer Database Cache Library",
   "main": "index.js",
   "scripts": {
@@ -20,15 +20,17 @@
     "Database"
   ],
   "author": "Brandon Lehmann <brandonlehmann@gmail.com>",
-  "license": "AGPL-3.0-only",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/brandonlehmann/turtlecoin-blockexplorer-cache/issues"
   },
   "homepage": "https://github.com/brandonlehmann/turtlecoin-blockexplorer-cache#readme",
   "dependencies": {
+    "turtlecoin-rpc": "^0.5.5"
+  },
+  "optionalDependencies": {
     "mysql": "^2.16.0",
-    "sqlite3": "^4.0.0",
-    "turtlecoin-rpc": "^0.5.3"
+    "sqlite3": "^4.0.0"
   },
   "devDependencies": {
     "standard": "^11.0.1"
