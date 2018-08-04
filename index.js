@@ -152,7 +152,6 @@ Self.prototype._update = function () {
         this.emit('synced')
         throw new Error('No blocks to read')
       }
-      // var diff = networkHeight - blockCount
       var updates = []
       updates = this._buildUpdateArray(blockCount, 1)
       return Promise.all(updates)
@@ -162,7 +161,8 @@ Self.prototype._update = function () {
       } else {
         this._update()
       }
-    }).catch(() => {
+    }).catch((err) => {
+      this.emit('error', err)
       this._delayedUpdate()
     })
   }
