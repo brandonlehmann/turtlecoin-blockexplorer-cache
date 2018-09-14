@@ -1,3 +1,8 @@
+[![NPM](https://nodei.co/npm/turtlecoin-blockexplorer-cache.png?downloads=true&stars=true)](https://nodei.co/npm/turtlecoin-blockexplorer-cache/)
+
+[![Build Status](https://travis-ci.org/brandonlehmann/turtlecoin-blockexplorer-cache.png?branch=master)](https://travis-ci.org/brandonlehmann/turtlecoin-blockexplorer-cache) [![Build Status](https://ci.appveyor.com/api/projects/status/github/brandonlehmann/turtlecoin-blockexplorer-cache?branch=master&svg=true)](https://ci.appveyor.com/project/brandonlehmann/turtlecoin-blockexplorer-cache/branch/master)
+
+
 # TurtleCoin Block Explorer Cache
 
 This library is designed to load block chain data for [TurtleCoin](https://turtlecoin.lol) into a standard SQL database that can be used to provide fast and robust access to block chain data using a service provider mentality.
