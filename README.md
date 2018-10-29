@@ -7,6 +7,11 @@
 
 This library is designed to load block chain data for [TurtleCoin](https://turtlecoin.lol) into a standard SQL database that can be used to provide fast and robust access to block chain data using a service provider mentality.
 
+## Dependencies
+
+* [NodeJS](https://nodejs.org/) >= 8.x
+* [turtle-service](https://github.com/turtlecoin/turtlecoin/releases) v0.8.4 or higher
+
 ## Installation
 
 ```bash

@@ -1,6 +1,6 @@
 {
   "name": "turtlecoin-blockexplorer-cache",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "TurtleCoin Block Explorer Database Cache Library",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/brandonlehmann/turtlecoin-blockexplorer-cache#readme",
   "dependencies": {
-    "turtlecoin-rpc": "^0.8.3"
+    "turtlecoin-rpc": "^0.8.4"
   },
   "optionalDependencies": {
     "mysql": "^2.16.0",
