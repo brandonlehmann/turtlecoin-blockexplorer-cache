@@ -1,3 +1,5 @@
+# This project is deprecated and sucks. You're better off using https://github.com/TurtlePay/blockchain-data-collection-agent
+
 [![NPM](https://nodei.co/npm/turtlecoin-blockexplorer-cache.png?downloads=true&stars=true)](https://nodei.co/npm/turtlecoin-blockexplorer-cache/)
 
 [![Build Status](https://travis-ci.org/brandonlehmann/turtlecoin-blockexplorer-cache.png?branch=master)](https://travis-ci.org/brandonlehmann/turtlecoin-blockexplorer-cache) [![Build Status](https://ci.appveyor.com/api/projects/status/github/brandonlehmann/turtlecoin-blockexplorer-cache?branch=master&svg=true)](https://ci.appveyor.com/project/brandonlehmann/turtlecoin-blockexplorer-cache/branch/master)
